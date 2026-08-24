@@ -1,0 +1,41 @@
+============================================================
+SIGNAMATCH - SIGNATURE COMPARISON REPORT
+============================================================
+
+Date and Time: 2026-08-23 23:00:49
+
+Reference Signature:
+C:/Users/GOPAL/OneDrive/Desktop/SignaMatch/Signatures/reference/signature1.jpeg
+
+Test Signature:
+C:/Users/GOPAL/OneDrive/Desktop/SignaMatch/Signatures/test/signature2.jpeg
+
+------------------------------------------------------------
+COMPARISON RESULTS
+------------------------------------------------------------
+
+Reference Fingerprint:
+6656642222223333
+
+Test Fingerprint:
+7653224222211111
+
+LCS Length: 8 / 16
+
+Similarity Percentage: 50.0%
+
+Classification:
+Moderate Similarity
+
+Similarity Level:
+Moderate Similarity
+
+Explanation:
+The signatures show a moderate level of similarity. Some patterns are common, while other patterns are different.
+
+Recommendation:
+The result should be examined together with the difference image.
+
+============================================================
+END OF REPORT
+============================================================

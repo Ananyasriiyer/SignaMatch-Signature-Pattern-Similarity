@@ -1,0 +1,10 @@
+APP_TITLE = "SignaMatch"
+APP_SUBTITLE = "Intelligent Signature Pattern Analysis using LCS"
+
+IMAGE_WIDTH = 64
+IMAGE_HEIGHT = 64
+
+COMPRESSED_WIDTH = 16
+COMPRESSED_HEIGHT = 16
+
+THRESHOLD = 128
