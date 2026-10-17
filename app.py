@@ -1,4 +1,5 @@
 import os
+import sys
 import io
 import time
 from datetime import datetime
@@ -6,6 +7,11 @@ from PIL import Image, UnidentifiedImageError
 import streamlit as st
 import pandas as pd
 import numpy as np
+
+# Ensure root project directory is in sys.path for Streamlit Cloud and Linux environments
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+if APP_DIR not in sys.path:
+    sys.path.insert(0, APP_DIR)
 
 # Import existing core modular algorithms (Original logic preserved)
 from image_processing import (
@@ -31,7 +37,40 @@ from lcs import (
 from similarity import create_similarity_result, classify_similarity
 from difference_analysis import create_difference_image
 from explainable_result import explain_similarity
-from comparison_history import save_comparison, load_history, clear_history
+
+# Comparison history import with resilient fallback for Streamlit Cloud deployments
+try:
+    from comparison_history import save_comparison, load_history, clear_history
+except ImportError:
+    try:
+        from comparison_history import save_comparison
+    except ImportError:
+        def save_comparison(reference_path, test_path, similarity, similarity_level):
+            pass
+
+    def load_history():
+        import csv
+        hist_file = os.path.join(APP_DIR, "results", "comparison_history.csv")
+        if not os.path.exists(hist_file):
+            return []
+        records = []
+        try:
+            with open(hist_file, "r", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    records.append(row)
+        except Exception:
+            return []
+        return records
+
+    def clear_history():
+        hist_file = os.path.join(APP_DIR, "results", "comparison_history.csv")
+        if os.path.exists(hist_file):
+            try:
+                os.remove(hist_file)
+            except OSError:
+                pass
+
 import config
 
 # ============================================================
