@@ -35,6 +35,42 @@ def calculate_lcs_length(string1, string2):
     return dp[m][n]
 
 
+def get_lcs_subsequence(string1, string2):
+    """
+    Reconstruct the actual Longest Common Subsequence string
+    by backtracking through the dynamic programming table.
+    """
+    m = len(string1)
+    n = len(string2)
+
+    dp = [
+        [0] * (n + 1)
+        for _ in range(m + 1)
+    ]
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if string1[i - 1] == string2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    # Backtrack to reconstruct subsequence
+    subsequence = []
+    i, j = m, n
+    while i > 0 and j > 0:
+        if string1[i - 1] == string2[j - 1]:
+            subsequence.append(string1[i - 1])
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] >= dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+
+    return "".join(reversed(subsequence))
+
+
 def calculate_similarity(
     string1,
     string2
